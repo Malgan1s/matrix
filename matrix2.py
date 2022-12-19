@@ -1,23 +1,29 @@
-## Документация.
-## Создание класса матриц
 class Matrix:
+    """
+    Создание класса матриц
+    """
 
     def __init__(self, matrix):
         self.matrix = matrix
 
-    # метод __add__ отвечает за сложение матриц
-    # Вызывается автоматически, когда задаётся команда "Matrix_1 + Matrix_2" (сумма матриц)
     def __add__(self, other):
+        """
+        метод __add__ отвечает за сложение матриц
+        Вызывается автоматически, когда задаётся команда "Matrix_1 + Matrix_2" (сумма матриц)
+        :param self - первая матрица, other - вторая матрица:
+        :return: с - сумма двух матриц
+        :raise: вызывает исключения, если одна из матриц задана неверно или если их размерность не совпадает
+        """
         a = self.matrix
         b = other.matrix
         if len(a) == len(b):
             n = len(a[0])
             for i in a:
                 if len(i) != n:
-                    raise ValueError("Первая матрица задана неверно!")
+                    raise SyntaxError("Первая матрица задана неверно!")
             for g in b:
                 if len(g) != n:
-                    raise ValueError("Вторая матрица задана неверно!")
+                    raise SyntaxError("Вторая матрица задана неверно!")
             c = []
             nb = []
             for i in range(len(a)):
@@ -30,19 +36,24 @@ class Matrix:
         else:
             raise ValueError("Размерность матриц не совпадает!")
 
-    # метод __sub__ отвечает за вычитание.
-    # Вызывается автоматически, когда задаётся команда "Matrix_1 - Matrix_2" (разность матриц)
     def __sub__(self, other):
+        """
+        метод __sub__ отвечает за вычитание.
+        вызывается автоматически, когда задаётся команда "Matrix_1 - Matrix_2" (разность матриц)
+        :param self - первая матрица, other - вторая матрица:
+        :return: с - разность двух матриц
+        :raise: вызывает исключения, если одна из матриц задана неверно или если их размерность не совпадает
+        """
         a = self.matrix
         b = other.matrix
         if len(a) == len(b):
             n = len(a[0])
             for i in a:
                 if len(i) != n:
-                    raise ValueError("Первая матрица задана неверно!")
+                    raise SyntaxError("Первая матрица задана неверно!")
             for g in b:
                 if len(g) != n:
-                    raise ValueError("Вторая матрица задана неверно!")
+                    raise SyntaxError("Вторая матрица задана неверно!")
             c = []
             nb = []
             for i in range(len(a)):
@@ -55,22 +66,25 @@ class Matrix:
         else:
             raise ValueError("Размерность матриц не совпадает!")
 
-    # метод __mul__ отвечает за умножение матрицы на число или на другую матрицу.
-    # Вызывается автоматически, когда задаётся команда "Matrix * const" или "Matrix_1 * Matrix_2"
     def __mul__(self, other):
+        """
+        метод __mul__ отвечает за умножение матрицы на число или на другую матрицу.
+        Вызывается автоматически, когда задаётся команда "Matrix * const" или "Matrix_1 * Matrix_2"
+        :param self - первая матрица, other - любое число или вторая матрица
+        :return: result - произведение матрицы на число, c - произведение двух матриц
+        :raise: вызывает исключение, если перемножить матрицы невозможно
+        """
         a = self.matrix
-        # первая часть __mul__ считает умножение матрицы на число
         if isinstance(other, int) or isinstance(other, float):
-            c = []
+            result = []
             nb = []
             for i in range(0, len(a)):
                 for g in range(0, len(a[0])):
                     nb.append(a[i][g] * other)
                     if len(nb) == len(a[0]):
-                        c.append(nb)
+                        result.append(nb)
                         nb = []
-            return c
-        # вторая часть __mul__ считает умножение матрицы на другую матрицу
+            return result
         else:
             b = other.matrix
             n = 0
@@ -92,12 +106,20 @@ class Matrix:
             else:
                 raise ValueError("Перемножить данные матрицы невозможно!")
 
-    # метод __xor__ отвечает за транспонирование матрицы.
-    # Вызывается автоматически, когда задаётся команда Matrix_1 ^ Matrix_2
     def __xor__(self, other):
+        """
+        метод __xor__ отвечает за транспонирование матрицы.
+        Вызывается автоматически, когда задаётся команда Matrix_1 ^ Matrix_2
+        :param self - заданная матрица
+        :return: tr_a - транспонированная матрица
+        """
         a = self.matrix
-        trans_a = [[0 for j in range(len(a))] for i in range(len(a[0]))]
+        n = len(a[0])
+        for i in a:
+            if len(i) != n:
+                raise SyntaxError("Матрица задана неверно!")
+        tr_a = [[0 for j in range(len(a))] for i in range(len(a[0]))]
         for i in range(0, len(a)):
             for g in range(0, len(a[0])):
-                trans_a[g][i] = a[i][g]
-        return trans_a
+                tr_a[g][i] = a[i][g]
+        return tr_a
