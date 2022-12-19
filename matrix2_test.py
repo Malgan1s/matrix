@@ -86,20 +86,17 @@ class MatrixTest(unittest.TestCase):
 
     def test_tr(self):
         self.assertEqual(
-            Matrix.__xor__(Matrix([[1, 2], [-1, -2], [1, 2]]),
-                           Matrix([[1, 2], [-1, -2], [1, 2]])),
+            Matrix.__invert__(Matrix([[1, 2], [-1, -2], [1, 2]])),
             [[1, -1, 1], [2, -2, 2]]
         )
         self.assertEqual(
-            Matrix.__xor__(Matrix([[2939, 32983, 2232], [7, 8, 9]]),
-                           Matrix([[2939, 32983, 2232], [7, 8, 9]])),
+            Matrix.__invert__(Matrix([[2939, 32983, 2232], [7, 8, 9]])),
             [[2939, 7], [32983, 8], [2232, 9]]
         )
 
     def test_tr_errors(self):
         self.assertRaises(
-            SyntaxError, Matrix.__xor__,
-            Matrix([[783, 23], [-34, 9443], [64, 1223, 3827]]),
+            SyntaxError, Matrix.__invert__,
             Matrix([[783, 23], [-34, 9443], [64, 1223, 3827]])
         )
 

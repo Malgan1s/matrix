@@ -106,7 +106,7 @@ class Matrix:
             else:
                 raise ValueError("Перемножить данные матрицы невозможно!")
 
-    def __xor__(self, other):
+    def __invert__(self):
         """
         метод __xor__ отвечает за транспонирование матрицы.
         Вызывается автоматически, когда задаётся команда Matrix_1 ^ Matrix_2
